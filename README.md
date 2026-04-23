@@ -1,10 +1,12 @@
 # Humiture Monitor
 
 Proyecto de monitorización de temperatura y humedad con un sensor SHT3x sobre ESP32-S3 usando ESP-IDF, FreeRTOS y MQTT.
+### 2026-04-23 Version: 1 
+El proyecto actual cuenta con algunos fallos "ninja" de programación que estoy tratando de solucionar. Pero queria tener ya la estructura hecha.
 
 ## Objetivo
 
-La última parte de la práctica consiste en integrar:
+La idea de este proyecto consiste en integrar:
 
 - tareas de FreeRTOS
 - comunicación entre tareas mediante colas
@@ -55,7 +57,7 @@ En [main/main.c](main/main.c) hay varias macros de configuración rápida:
 - `MQTT_BROKER_URI`
 - `MQTT_TOPIC`
 
-Antes de ejecutar el proyecto hay que sustituir al menos:
+Antes de ejecutar el proyecto hay que sustituir:
 
 - `REPLACE_WITH_WIFI_SSID`
 - `REPLACE_WITH_WIFI_PASSWORD`
@@ -93,15 +95,18 @@ Las muestras se publican como JSON, por ejemplo:
 Con el entorno de ESP-IDF correctamente cargado:
 
 ```bash
-idf.py build
-idf.py flash monitor
+ESP-IDF:Build your project
+ESP-IDF: Select port to use
+ESP-IDF: Select flash method
+ESP-IDF: Flash your project
 ```
 
-Si partes de un entorno limpio, el proyecto está preparado para `esp32s3` mediante `sdkconfig.defaults`.
+Si partes de un entorno limpio, el proyecto está preparado para `esp32s3` mediante `sdkconfig.defaults`. 
+### Pero por el momento tengo un error ninja 
 
 ## Fuentes utilizadas
 
-La parte de Wi-Fi, eventos, colas y MQTT está basada en la documentación oficial de ESP-IDF y en sus patrones habituales de ejemplo.
+La parte de Wi-Fi, eventos, colas y MQTT no se ha inventado ad hoc, sino que está basada en la documentación oficial de ESP-IDF y en sus patrones habituales de ejemplo.
 
 ### Documentación oficial de Espressif
 
@@ -114,13 +119,49 @@ La parte de Wi-Fi, eventos, colas y MQTT está basada en la documentación ofici
 - FreeRTOS en ESP-IDF:
   - https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos_idf.html
 
-### Ejemplos oficiales de referencia
+### Ejemplos oficiales de referencia para los protocolos de comunicación
 
 - Wi-Fi station example:
   - `examples/wifi/getting_started/station`
 - MQTT TCP example:
   - `examples/protocols/mqtt/tcp`
 
-## Observaciones
+##  Algunos repositorios que he usado de referencia
 
-- El broker configurado por defecto en el código es público: `mqtt://broker.hivemq.com`
+Estos son algunos de los repositorios tanto oficiales de Espressif como de la comunidad que he usado de referencia para este proyecto. 
+
+### Repositorios oficiales de Espressif
+
+- `espressif/esp-idf`
+  - Framework oficial de Espressif.
+  - Incluye los ejemplos base de Wi-Fi, FreeRTOS y MQTT.
+  - https://github.com/espressif/esp-idf
+
+- `espressif/esp-mqtt`
+  - Implementación oficial del cliente MQTT usado por ESP-IDF.
+  - Útil para revisar la API y ejemplos de publicación y suscripción.
+  - https://github.com/espressif/esp-mqtt
+
+- `espressif/esp-freertos-coremqtt`
+  - Proyecto de referencia para MQTT sobre FreeRTOS.
+  - Sirve para ver una integración más elaborada del cliente MQTT.
+  - https://github.com/espressif/esp-freertos-coremqtt
+
+- `espressif/esp-protocols`
+  - Colección de componentes de red de Espressif.
+  - Puede servir como referencia adicional sobre protocolos y conectividad.
+  - https://github.com/espressif/esp-protocols
+
+### Repositorios de la comunidad
+
+- `ESP32Tutorials/esp32-mqtt-pub-sub-esp-idf`
+  - Ejemplo de publicación y suscripción MQTT con ESP-IDF.
+  - https://github.com/ESP32Tutorials/esp32-mqtt-pub-sub-esp-idf
+
+- `ESP32Tutorials/esp32-esp-idf-mqtt-bme280`
+  - Ejemplo de lectura de sensor y publicación MQTT con ESP-IDF.
+  - Aunque no usa SHT3x, la estructura general es parecida a esta práctica.
+  - https://github.com/ESP32Tutorials/esp32-esp-idf-mqtt-bme280
+
+## Algunas aclaraciones
+Con este proyecto por un lado planeo aprender a utilizar las colas, las tareas y la comunicación, y sobre todo con la ayuda de la comunidad es más fácil, por eso queria intentar aportar un pequeño grano de arena. 
