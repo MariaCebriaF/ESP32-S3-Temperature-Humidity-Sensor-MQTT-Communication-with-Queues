@@ -3,8 +3,7 @@
 Proyecto de monitorización de temperatura y humedad con un sensor SHT3x sobre ESP32-S3 usando ESP-IDF, FreeRTOS y MQTT.
 
 ## Objetivo
-
-La última parte de la práctica consiste en integrar:
+Este proyecto es un intento de implementación de:
 
 - tareas de FreeRTOS
 - comunicación entre tareas mediante colas
@@ -44,7 +43,6 @@ La comunicación se hace con una cola FreeRTOS:
 - envío: `xQueueSend(...)`
 - recepción: `xQueueReceive(...)`
 
-Esto desacopla la adquisición del sensor de la publicación por red.
 
 ## Configuración actual
 
@@ -90,11 +88,11 @@ Las muestras se publican como JSON, por ejemplo:
 
 ## Compilación y carga
 
-Con el entorno de ESP-IDF correctamente cargado:
-
 ```bash
-idf.py build
-idf.py flash monitor
+ESP-IDF:Build your project
+ESP-IDF: Select port to use
+ESP-IDF: Select flash method
+ESP-IDF: Flash your project
 ```
 
 Si partes de un entorno limpio, el proyecto está preparado para `esp32s3` mediante `sdkconfig.defaults`.
@@ -121,6 +119,38 @@ La parte de Wi-Fi, eventos, colas y MQTT está basada en la documentación ofici
 - MQTT TCP example:
   - `examples/protocols/mqtt/tcp`
 
-## Observaciones
+### Repositorios oficiales de Espressif
 
-- El broker configurado por defecto en el código es público: `mqtt://broker.hivemq.com`
+- `espressif/esp-idf`
+  - Framework oficial de Espressif.
+  - Incluye los ejemplos base de Wi-Fi, FreeRTOS y MQTT.
+  - https://github.com/espressif/esp-idf
+
+- `espressif/esp-mqtt`
+  - Implementación oficial del cliente MQTT usado por ESP-IDF.
+  - Útil para revisar la API y ejemplos de publicación y suscripción.
+  - https://github.com/espressif/esp-mqtt
+
+- `espressif/esp-freertos-coremqtt`
+  - Proyecto de referencia para MQTT sobre FreeRTOS.
+  - Sirve para ver una integración más elaborada del cliente MQTT.
+  - https://github.com/espressif/esp-freertos-coremqtt
+
+- `espressif/esp-protocols`
+  - Colección de componentes de red de Espressif.
+  - Puede servir como referencia adicional sobre protocolos y conectividad.
+  - https://github.com/espressif/esp-protocols
+  
+
+### Repositorios comunitarios útiles
+
+- `ESP32Tutorials/esp32-mqtt-pub-sub-esp-idf`
+  - Ejemplo sencillo de publicación y suscripción MQTT con ESP-IDF.
+  - https://github.com/ESP32Tutorials/esp32-mqtt-pub-sub-esp-idf
+
+- `ESP32Tutorials/esp32-esp-idf-mqtt-bme280`
+  - Ejemplo de lectura de sensor y publicación MQTT con ESP-IDF.
+  - Aunque no se usa SHT3x, la estructura general es parecida a esta práctica.
+  - https://github.com/ESP32Tutorials/esp32-esp-idf-mqtt-bme280
+
+
